@@ -8,7 +8,7 @@ export default function RichObjectTreeView({ data, expanded }) {
   const renderTree = (nodes) => (
     <Link to={`/category/${nodes.categoryId}`} className="app-link">
       <TreeItem
-        key={nodes.categoryId}
+        key={nodes.displayName}
         nodeId={nodes.categoryId}
         label={
           nodes.parentId === "root"
@@ -28,10 +28,7 @@ export default function RichObjectTreeView({ data, expanded }) {
       aria-label="rich object"
       defaultCollapseIcon={<ExpandMoreIcon />}
       defaultExpanded={expanded}
-      //expanded={["men"]}
       defaultExpandIcon={<ChevronRightIcon />}
-
-      //sx={{ height: 110, flexGrow: 1, maxWidth: 400, overflowY: "auto" }}
     >
       {renderTree(data)}
     </TreeView>

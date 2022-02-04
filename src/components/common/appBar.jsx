@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { styled, alpha } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
@@ -21,7 +21,6 @@ import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import CardHeader from "@mui/material/CardHeader";
-// import NotificationsIcon from "@mui/icons-material/Notifications";
 import TemporaryDrawer from "./TemporaryDrawer";
 import RichObjectTreeView from "./RichObjectTreeView";
 const Search = styled("div")(({ theme }) => ({
@@ -94,9 +93,7 @@ export default function PrimarySearchAppBar({ data }) {
   let cart = useSelector((state) => state.cartReducer);
 
   const [open, setOpen] = React.useState(false);
-  const handleClose = () => {
-    setOpen(false);
-  };
+  let { type: Header } = useParams();
   const handleToggle = () => {
     setOpen(!open);
   };
@@ -105,10 +102,6 @@ export default function PrimarySearchAppBar({ data }) {
       .filter((item) => item[link] === categoryId)
       .map((item) => ({ ...item, children: nest(items, item.categoryId) }));
 
-  const handleProfileMenuOpen = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
   const handleMobileMenuClose = () => {
     setMobileMoreAnchorEl(null);
   };
@@ -116,10 +109,6 @@ export default function PrimarySearchAppBar({ data }) {
   const handleMenuClose = () => {
     setAnchorEl(null);
     handleMobileMenuClose();
-  };
-
-  const handleMobileMenuOpen = (event) => {
-    setMobileMoreAnchorEl(event.currentTarget);
   };
 
   const menuId = "primary-search-account-menu";
@@ -254,7 +243,19 @@ export default function PrimarySearchAppBar({ data }) {
           >
             MOVA Shop
           </Typography>
-          <Search>
+          <Typography
+            variant="subtitle1"
+            noWrap
+            component="div"
+            sx={{
+              display: { xs: "none", sm: "block" },
+              color: "gray",
+              marginLeft: 5,
+            }}
+          >
+            {Header && `Our ${Header}`}
+          </Typography>
+          {/* <Search>
             <SearchIconWrapper>
               <SearchIcon />
             </SearchIconWrapper>
@@ -262,7 +263,8 @@ export default function PrimarySearchAppBar({ data }) {
               placeholder="Search…"
               inputProps={{ "aria-label": "search" }}
             />
-          </Search>
+          </Search> */}
+
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: "flex", md: "flex" } }}>
             <Link to="/cart" className="app-link">

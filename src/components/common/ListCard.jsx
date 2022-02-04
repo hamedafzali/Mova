@@ -7,23 +7,13 @@ import RemoveIcon from "@mui/icons-material/Remove";
 import ListSubheader from "@mui/material/ListSubheader";
 import IconButton from "@mui/material/IconButton";
 import { Link } from "react-router-dom";
-import ToggleButton from "@mui/material/ToggleButton";
-import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
+
+import ButtonGroup from "./ButtonGroup";
 const ListCard = ({ item, addToCard, removeFromCard, cart }) => {
   const [selectedSize, setSelectedSize] = React.useState("");
-
-  const handleChange = (event, size) => {
-    setSelectedSize(size);
-  };
-  const control = {
-    value: selectedSize,
-    onChange: handleChange,
-    exclusive: true,
-  };
   return (
     <>
       <ImageListItem
-        key={item.img}
         sx={{
           border: 1,
           borderColor: "silver",
@@ -67,22 +57,11 @@ const ListCard = ({ item, addToCard, removeFromCard, cart }) => {
           }
           subtitle={
             <>
-              {/* <div style={{ margin: 10 }}>
-              <strong>
-                SIZE:
-                {item.availableSizes.map((i) => (
-                  <span>{` ${i} |`}</span>
-                ))}
-              </strong>
-            </div> */}
-
-              <ToggleButtonGroup size="medium" {...control}>
-                {item.availableSizes.map((i) => (
-                  <ToggleButton value={i} key={i}>
-                    {i}
-                  </ToggleButton>
-                ))}
-              </ToggleButtonGroup>
+              <ButtonGroup
+                data={item.availableSizes}
+                selected={selectedSize}
+                setSelected={setSelectedSize}
+              />
               {!cart.filter((i) => i.item.itemId === item.itemId).length ? (
                 <h4>
                   <IconButton
@@ -115,6 +94,10 @@ const ListCard = ({ item, addToCard, removeFromCard, cart }) => {
                   </IconButton>
                 </h4>
               )}
+
+              {item.tags.map((tag) => (
+                <strong key={tag}>{tag}</strong>
+              ))}
             </>
           }
           position="below"

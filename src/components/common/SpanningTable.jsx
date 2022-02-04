@@ -32,10 +32,6 @@ const rows = [
   createRow("Waste Basket", 2, 17.99),
 ];
 
-const invoiceSubtotal = subtotal(rows);
-const invoiceTaxes = TAX_RATE * invoiceSubtotal;
-const invoiceTotal = invoiceTaxes + invoiceSubtotal;
-
 export default function SpanningTable({ cart }) {
   const SUM = cart.map((i) => i.item.currentPrice).reduce((a, b) => a + b);
   return (
@@ -74,14 +70,6 @@ export default function SpanningTable({ cart }) {
               </TableCell>
             </TableRow>
           ))}
-          {/* {rows.map((row) => (
-            <TableRow key={row.desc}>
-              <TableCell>{row.desc}</TableCell>
-              <TableCell align="right">{row.qty}</TableCell>
-              <TableCell align="right">{row.unit}</TableCell>
-              <TableCell align="right">{ccyFormat(row.price)}</TableCell>
-            </TableRow>
-          ))} */}
 
           <TableRow>
             <TableCell rowSpan={3} />

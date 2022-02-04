@@ -1,10 +1,8 @@
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
 import Button from "@mui/material/Button";
 import { useSelector, useDispatch } from "react-redux";
 import ShoppingCartCheckoutIcon from "@mui/icons-material/ShoppingCartCheckout";
@@ -73,7 +71,6 @@ const Cart = () => {
     >
       <TableHead>
         <TableRow>
-          {console.log(unique())}
           <TableCell align="center" colSpan={4}>
             Details
           </TableCell>

@@ -1,15 +1,16 @@
 import { Fragment, useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
-import { cartAdded, cartEmpty, cartRemoved } from "./../store/cart";
 import AppBar from "./common/appBar";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
 import { styled } from "@mui/material/styles";
 
+import { cartAdded, cartRemoved } from "./../store/cart";
 import { getCategories, getCollections, getItems } from "./../services/product";
-import TitlebarBelowImageList from "./common/ImageList";
+import TitlebarBelowImageList from "./common/List";
+import { colSetted } from "../store/settings";
 
 const Shop = () => {
   const [categories, setCategories] = useState([]);
@@ -20,10 +21,23 @@ const Shop = () => {
     handleGetCategories();
     handleGetCollections();
     handleGetItems();
+    setCol();
   }, []);
   useEffect(() => {
     handleGetItems();
   }, [type, q]);
+  const getWindowDimensions = () => {
+    const { innerWidth: width, innerHeight: height } = window;
+    return {
+      width,
+      height,
+    };
+  };
+  const setCol = () => {
+    const res = getWindowDimensions();
+    const width = res.width > 1024 ? 5 : 1;
+    dispatch(colSetted(width));
+  };
   const handleGetCategories = async () => {
     const { data } = await getCategories();
     setCategories(data);

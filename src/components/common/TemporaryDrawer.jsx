@@ -35,20 +35,17 @@ export default function TemporaryDrawer({ position, content }) {
   );
 
   return (
-    <div>
-      <React.Fragment key={position}>
-        <drawerIcon />
-        <Button onClick={toggleDrawer(position, true)}>
-          <MenuIcon />
-        </Button>
-        <Drawer
-          anchor={position}
-          open={state[position]}
-          onClose={toggleDrawer(position, false)}
-        >
-          {list(position)}
-        </Drawer>
-      </React.Fragment>
-    </div>
+    <React.Fragment>
+      <Button onClick={toggleDrawer(position, true)}>
+        <MenuIcon />
+      </Button>
+      <Drawer
+        anchor={position}
+        open={state[position]}
+        onClose={toggleDrawer(position, false)}
+      >
+        {list(position)}
+      </Drawer>
+    </React.Fragment>
   );
 }
